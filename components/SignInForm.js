@@ -5,8 +5,13 @@ import { Feather } from "@expo/vector-icons";
 import SubmitButton from "../components/SubmitButton";
 import { validateInput } from "../utils/actions/FormActions";
 import { reducer } from "../utils/reducer/formReducer";
+import { signUp } from "../utils/actions/authActions";
 
 const initialState = {
+  inputValues: {
+    email: "",
+    password: "",
+  },
   inputValidaties: {
     email: false,
     password: false,
@@ -19,10 +24,14 @@ const SignInForm = (props) => {
   const inputChangeHandler = useCallback(
     (inputId, inputValue) => {
       const result = validateInput(inputId, inputValue);
-      dispatchFormState({ inputId, validationResult: result });
+      dispatchFormState({ inputId, validationResult: result, inputValue });
     },
     [dispatchFormState]
   );
+
+  const authHandler = () => {
+    // signUp;
+  };
   return (
     <>
       <Input
@@ -46,7 +55,7 @@ const SignInForm = (props) => {
       />
       <SubmitButton
         title="Sign In"
-        onPress={() => {}}
+        onPress={authHandler}
         disabled={!formState.formIsValid}
         style={{ marginTop: 20 }}
       />
